@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	table
+		tr
+			td type
+			td id
+			td sequenceid
+			td etag
+			td name
+		for r in body.entries
+			tr
+				td= r.type
+				td= r.id
+				td= r.sequence_id
+				td= r.etag
+				td= r.name

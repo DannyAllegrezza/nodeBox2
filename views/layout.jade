@@ -1,0 +1,16 @@
+doctype html
+head
+	title Passport-Box Example
+body
+	if !user
+		h2 Welcome! Please log in.
+		p
+			a(href="/") Home
+			a(href="/login") Log In
+	else
+		h2 Hello #{user.displayName}
+		a(href="/") Home
+		a(href="/account") Account
+		a(href="/logout") Log Out
+		a(href="/bundy-query") Bundy Query
+	block content
