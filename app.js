@@ -11,8 +11,8 @@ var express = require('express'),
   BoxStrategy = require('passport-box').Strategy,
   box_sdk = require('box-sdk');
 
-var BOX_CLIENT_ID = "6bb9qxlgv8czyth8d9vy1v73z1v1k2qv"
-var BOX_CLIENT_SECRET = "h2eZb1Rj6vtp1mqjDXFXoNgwr0scjaVk";
+var BOX_CLIENT_ID = "elzbcddk4107usz69ebwj4ygvfe8ghiw"
+var BOX_CLIENT_SECRET = "QwYCY9fgti1lD4TKkVLSYrA2Vt9tT9da";
 
 var box = box_sdk.Box();
 
@@ -38,7 +38,9 @@ passport.deserializeUser(function (obj, done) {
 passport.use(new BoxStrategy({
     clientID: BOX_CLIENT_ID,
     clientSecret: BOX_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/box/callback"
+    // FOR LOCAL TESTING -- UNCOMMENT AND THEN COMMENT LINE BELOW
+    //callbackURL: "http://127.0.0.1:3000/auth/box/callback"
+    callbackURL: "https://nodebox2.cfapps.io/auth/box/callback"
   }, box.authenticate()));
 
 var app = express();
@@ -127,5 +129,5 @@ function custom_sort(a, b){
   return sort;
 };
 
-
-app.listen(3000);
+module.exports = app;
+//app.listen(3000);

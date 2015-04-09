@@ -1,0 +1,4 @@
+applications:
+- name: nodeBox2
+  memory: 256M
+  buildpack: https://github.com/cloudfoundry/heroku-buildpack-nodejs.git

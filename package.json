@@ -1,19 +1,37 @@
 {
   "name": "nodeBox2",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "A basic app that extends Box.com search functionality to show more results to the user.",
+  "main": "app.js",
+  "dependencies": {
+    "box-sdk": "^0.0.6",
+    "cookie-parser": "^1.3.4",
+    "ejs": "^2.3.1",
+    "express": "^4.12.3",
+    "debug": "^2.1.3",
+    "express-session": "^1.10.4",
+    "jade": "^1.9.2",
+    "method-override": "^2.3.2",
+    "moment": "^2.10.0",
+    "morgan": "^1.5.2",
+    "passport": "^0.2.1",
+    "passport-box": "^0.1.0",
+    "serve-favicon": "^2.2.0",
+    "body-parser": "^1.12.2"
+  },
+  "devDependencies": {},
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./bin/www"
   },
-  "dependencies": {
-    "body-parser": "~1.12.0",
-    "cookie-parser": "~1.3.4",
-    "debug": "~2.1.1",
-    "express": "~4.12.2",
-    "jade": "~1.9.2",
-    "nodejs-box": "*",
-    "node-box-sdk" : "*",
-    "passport-box": "*",
-    "serve-favicon": "~2.2.0"
-  }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DannyAllegrezza/nodeBox2.git"
+  },
+  "author": "Danny Allegrezza <dallegrezza@varrow.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DannyAllegrezza/nodeBox2/issues"
+  },
+  "homepage": "https://github.com/DannyAllegrezza/nodeBox2"
 }
