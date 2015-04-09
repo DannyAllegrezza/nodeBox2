@@ -1,17 +1,26 @@
 extends layout
 
 block content
-	table
-		tr
-			td type
-			td id
-			td sequenceid
-			td etag
-			td name
-		for r in body.entries
-			tr
-				td= r.type
-				td= r.id
-				td= r.sequence_id
-				td= r.etag
-				td= r.name
+	div.container
+		h1.starter-template Hello #{user.name}
+		h3 Showing #{entries.length} results out of #{JSON.stringify(total_count)}
+		table.table.table-striped
+			thead
+				tr
+					th Path
+					th File name
+					th Version # 
+					th Created Date
+					th Modified Date
+					th Created By
+			tbody
+				for r in entries
+					tr
+						td= r.path_collection.entries[4].name
+						td= r.name
+						td= parseInt(r.etag) + 1 
+						td= moment(r.created_at).format('MM/DD/YYYY')
+						td= moment(r.modified_at).format('MM/DD/YYYY')
+						td=r.created_by.name
+
+		//p Full JSON #{JSON.stringify(entries)}

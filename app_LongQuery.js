@@ -42,7 +42,6 @@ passport.use(new BoxStrategy({
   }, box.authenticate()));
 
 var app = express();
-app.locals.moment = require('moment');
 var router = express.Router();
 
 // configure Express
@@ -89,43 +88,53 @@ app.use(function (req, res, next){
 });
 
 app.get('/bundy-query', function (req, res) {
-  var bundyQuery = '"Project Status Report"';
+  var bundyQuery = "Project Status Report";
   var searchParams = {
     limit: 200,
     type: "file",
-    sort: "date",
+    sort: "relevance",
     file_extensions: "pdf, pptx"
   };
 
   var opts = {
-    user: req.user
+    user: req.user,
+    entries: [],
+    full: '',
+    err: ''
   };
   if (req.user) {
     var connection = box.getConnection(req.user.login);
     connection.ready(function () {
       connection.search(bundyQuery, searchParams, function (err, result) {
         if (err) {
-          opts.entries = JSON.stringify(err);
+          opts.err += JSON.stringify(err);
         } else {
-          opts.entries = result.entries;
-          opts.total_count = result.total_count;
-          opts.entries.sort(custom_sort);
+          opts.entries += result.entries;
+          for (ent in result.entries) {
+            opts.entries.push(result.entries[ent]);
+          }
+          opts.full += JSON.stringify(result.entries);
+
+          searchParams.offset = 200;
+          connection.search(bundyQuery, searchParams, function(err, result) {
+            if (err) {
+              opts.err += JSON.stringify(err);
+            } else {
+              opts.entries += result.entries;
+              for (ent in result.entries){
+                opts.entries.push(result.entries[ent]);
+              }
+              opts.full += JSON.stringify(result.entries);
+            }
+            res.render('bundy-query', opts);
+          })
         }
-        res.render('bundy-query', opts);
       });
     });
   } else {
     res.render('bundy-query', opts);
   }
 });
-
-//Sort the Date:
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-
-function custom_sort(a, b){
-  var sort = new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-  return sort;
-};
 
 
 app.listen(3000);
